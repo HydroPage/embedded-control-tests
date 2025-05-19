@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "constants.h"
-#include "encoder_estimation.h"
+#include "control_system.h"
 #include "motor_control.h"
 
 void setup()
@@ -14,15 +14,20 @@ void setup()
 
 void loop()
 {
-    Serial.println(getMotorRadsPerSec());
+    Serial.print(getMotorPosRads());
+    Serial.print(',');
+    Serial.print(getMotorRadsPerSec());
+    Serial.println();
     delay(50);
 
     if (digitalRead(7) == HIGH)
     {
-        setMotorVolts(24);
+        // setMotorDesiredOmega(30 * sinf(TWO_PI*millis() / 1000 / 2));
+
+        setMotorDesiredOmega(45);
     }
     else
     {
-        setMotorVolts(0);
+        setMotorDesiredOmega(0);
     }
 }

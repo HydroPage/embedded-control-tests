@@ -1,8 +1,9 @@
 #pragma once
 #include <Arduino.h>
 
-#define RadPS2RPM(x) 60*x / TWO_PI
-#define RPM2RadPS(x) TWO_PI*x / 60
+#define RadPS2RPM(x) 60 * x / TWO_PI
+#define RPM2RadPS(x) TWO_PI *x / 60
+#define CLAMP(x, a, b) max(a, min(x, b))
 
 constexpr bool COUNT_UP = true;
 constexpr bool AUTORELOAD = true;
@@ -14,14 +15,38 @@ constexpr int ENC_PIN_2 = 2;
 constexpr int MOTOR_PIN_1 = 4;
 constexpr int MOTOR_PIN_2 = 5;
 
-constexpr float ENC_TICKS_PER_REV = 1203.2 / 2;
+constexpr float ENC_TICKS_PER_REV = 1203.2 / 2; // from datasheet
 constexpr int ENC_SAMPLE_RATE_HZ = 50;
-constexpr int ENC_SAMPLE_PERIOD_MICROS = static_cast<int> (1.0f / ENC_SAMPLE_RATE_HZ * 1E6);
-constexpr float dt = 1.0f / ENC_SAMPLE_RATE_HZ;
+constexpr int ENC_SAMPLE_PERIOD_MICROS = 1.0f / ENC_SAMPLE_RATE_HZ * 1E6;
+constexpr float V_S = 23.4f;
 
-constexpr float J = 0.004;
-constexpr float V_S = 23.4;
-constexpr float R = 7;
-constexpr float SPEED_NL = RPM2RadPS(500);
-constexpr float k = V_S / SPEED_NL;
-constexpr float b = 8E-4;
+// Discrete state transition
+constexpr float Ad[2][2] =
+{
+    {1, 0.01632927},
+    {0, 0.65688802}
+};
+
+// Voltage forcing entry
+constexpr float Bd[2][1] =
+{
+    {0.00792123},
+    {0.7404161}
+};
+
+// Measurement
+constexpr float C[1][2] = {{1, 0}};
+
+// Kalman gains
+constexpr float L[2][1] = 
+{
+	{0.9965767479411192},
+	{0.07018923663958729}
+};
+
+constexpr float Kp = 0.441306266549062;
+constexpr float Ki = 9.26743159752787;
+constexpr float Kd = 0;
+
+constexpr float V_i_max = 10;
+constexpr float i_max = 10;
