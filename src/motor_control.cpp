@@ -8,7 +8,7 @@ float desiredOmega = 0;
 // volts - how many volts to apply to the motor
 // returns how many volts were really applied, subject to constraints
 // NOTE: doesn't actually measure the voltage at the terminals for the return value
-float setMotorVolts(float volts)
+float setMotorVoltsClamp(float volts)
 {
     appliedVolts = CLAMP(volts, -V_S, V_S);
 

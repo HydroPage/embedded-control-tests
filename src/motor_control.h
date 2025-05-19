@@ -3,7 +3,7 @@
 // + is counter cw, - is cw
 // Sets the voltage on the motor
 // Returns the actual saturated applied voltage post clamping
-float setMotorVolts(float volts);
+float setMotorVoltsClamp(float volts);
 
 float getMotorVolts();
 
