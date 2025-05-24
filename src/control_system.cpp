@@ -40,7 +40,7 @@ void runControlLaw()
 
     // Bilinear transform (Tustin) PID controller, recursive update
     float p = Kp * omegaErr;
-    i = CLAMP(0.98f * i + (T / 2) * (omegaErr + prevOmegaErr), -i_max, i_max);
+    i = CLAMP(i + (T / 2) * (omegaErr + prevOmegaErr), -i_max, i_max);
     d = (2 * Kd * (omegaErr - prevOmegaErr) - (T - 2 * Kd) * d) / (T + 2 * Kd);
 
     // This output will be the next sample's "previous output", u_{k-1}

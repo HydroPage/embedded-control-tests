@@ -12,14 +12,15 @@ dt = 1/sample_rate_hz
 # Discrete omega decay coefficient
 bc = 0  # Continuous, approximated
 
-V_S = 23.4
-SPEED_NL = 482.2 * np.pi/30  # RPM to RadsPS
+V_S = 24.5
+SPEED_NL = 538.58 * np.pi/30  # RPM to RadsPS
 
 G = 18.8        # motor turns per output turn (gear ratio)
-J = 0.0014      # effective moment of inertia, including gear ratio multiplication
+J = 0.00075     # effective moment of inertia, including gear ratio multiplication
                 # (approximate base J, usually order of e-6 to e-5)
 
-R = 7.3
+R_wires = 0.8
+R = 8 + R_wires    # The resistance seen by the driver (motor + wires going to motor)
 k = V_S / SPEED_NL
 
 A = np.array([
@@ -50,8 +51,8 @@ G = np.eye(2)
 
 # Process noise/uncertainty covariance
 QN = np.array([
-    [np.deg2rad(0.1),  0 ],
-    [     0,          0.01]
+    [np.deg2rad(0.1),  0  ],
+    [     0,          0.1 ]
 ])
 
 # Sensor noise covariance (quantization noise variance in radians)

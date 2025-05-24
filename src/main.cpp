@@ -10,21 +10,31 @@ void setup()
     pinMode(MOTOR_PIN_1, OUTPUT);
     pinMode(MOTOR_PIN_2, OUTPUT);
     pinMode(7, INPUT_PULLDOWN);
+
+    analogWriteResolution(ANALOG_WRITE_RES_BITS);
+    analogWriteFrequency(ANALOG_WRITE_FREQ_HZ);
 }
 
 void loop()
 {
-    Serial.print(getMotorPosRads());
-    Serial.print(',');
-    Serial.print(getMotorRadsPerSec());
-    Serial.println();
-    delay(50);
+    static unsigned long prevPrint = 0;
+    unsigned long now = millis();
+    if (now - prevPrint >= 200)
+    {
+        prevPrint = now;
+        Serial.print(getMotorVolts());
+        Serial.print(',');
+        Serial.print(getMotorRadsPerSec());
+        Serial.println();
+    }
 
     if (digitalRead(7) == HIGH)
     {
-        // setMotorDesiredOmega(30 * sinf(TWO_PI*millis() / 1000 / 2));
+        // setMotorDesiredOmega(50 * sinf(TWO_PI*millis() / 1000 / 2));
 
-        setMotorDesiredOmega(45);
+        // setMotorDesiredOmega(50);
+
+        setMotorDesiredOmega(100.0f * (millis() % 10000) / 10000.0f - 50.0f);
     }
     else
     {
