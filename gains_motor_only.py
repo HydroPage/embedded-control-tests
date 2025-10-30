@@ -2,6 +2,7 @@ import scipy as sp
 import numpy as np
 import control
 from matplotlib import pyplot as plt
+from scipy.signal import StateSpace
 import pyperclip
 
 # Small kalman filter for angle estimation
@@ -42,7 +43,7 @@ D = np.array([
 ])
 
 # Full-state measurement model, for simulation including both theta and omega
-dss = sp.signal.StateSpace(A, B, C, D).to_discrete(dt)
+dss = StateSpace(A, B, C, D).to_discrete(dt, method='bilinear')
 Ad = dss.A
 Bd = dss.B
 
