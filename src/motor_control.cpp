@@ -11,11 +11,11 @@ float setMotorVoltsClamp(float volts)
 
     int outPWM = appliedVolts / V_S * ANALOG_HIGH;
 
-    // Brake mode
+    // Brake mode (friendly, linear-looking)
     int outPin1 = (volts > 0) ? ANALOG_HIGH : ANALOG_HIGH + outPWM;
     int outPin2 = (volts > 0) ? ANALOG_HIGH - outPWM : ANALOG_HIGH;
 
-    // Coast mode
+    // Coast mode (nonlinear, hard to model, much more energy-efficient)
     // int outPin1 = (volts > 0) ? outPWM : 0;
     // int outPin2 = (volts > 0) ? 0 : -outPWM;
 

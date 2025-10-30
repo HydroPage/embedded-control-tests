@@ -19,7 +19,7 @@ void loop()
 {
     static unsigned long prevPrint = 0;
     unsigned long now = millis();
-    if (now - prevPrint >= 200)
+    if (now - prevPrint >= 50)
     {
         prevPrint = now;
         Serial.print(getMotorVolts());
