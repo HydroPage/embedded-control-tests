@@ -3,6 +3,7 @@ import numpy as np
 import control
 from matplotlib import pyplot as plt
 from scipy.signal import StateSpace
+import scipy.signal
 import pyperclip
 
 # Small kalman filter for angle estimation
@@ -83,7 +84,7 @@ t = np.linspace(0, tf, int(1 + tf/dt))
 u = np.zeros(t.shape)
 u[int(t.size/3):] = V_S
 u[int(2*t.size/3):] = 0
-tout, yout, xout = sp.signal.dlsim(dss, u = u, t = t)
+tout, yout, xout = scipy.signal.dlsim(dss, u = u, t = t)
 plt.plot(tout, xout[:, 0], label="Angular position")
 plt.plot(tout, xout[:, 1], label="Angular velocity")
 plt.legend()
