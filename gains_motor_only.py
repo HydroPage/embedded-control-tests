@@ -18,7 +18,7 @@ V_S = 24.5
 SPEED_NL = 538.58 * np.pi/30  # RPM to RadsPS
 
 G = 18.8        # motor turns per output turn (gear ratio)
-J = 0.00075     # effective moment of inertia, including gear ratio multiplication
+J = 0.00093     # effective moment of inertia, including gear ratio multiplication
                 # (approximate base J, usually order of e-6 to e-5)
 
 R_wires = 0.8
