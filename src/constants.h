@@ -35,14 +35,14 @@ constexpr float T_MICROS = SAMPLE_TIME_MICROS;
 // Discrete state transition
 constexpr float Ad[2][2] =
     {
-        {1, 0.01523216},
-        {0, 0.56449622}};
+        {1, 0.01625259},
+        {0, 0.62525883}};
 
 // Voltage forcing entry
 constexpr float Bd[2][1] =
     {
-        {0.01097577},
-        {1.00254687}};
+        {0.00862669},
+        {0.86266893}};
 
 // Measurement
 constexpr float C[1][2] = {{1, 0}};
@@ -50,8 +50,8 @@ constexpr float C[1][2] = {{1, 0}};
 // Kalman gains
 constexpr float L[2][1] = 
 {
-	{1.005547030606374},
-	{0.3939805004843886}
+	{1.0097732339945384},
+	{0.5705986966121414}
 };
 
 constexpr float Kp = 1.10326566637226;
